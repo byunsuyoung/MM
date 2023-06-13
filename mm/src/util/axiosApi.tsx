@@ -1,7 +1,7 @@
 export const BaseUrl = "http://127.0.0.1:8000/swagger"
 
 export type Notice = {
-    id: 
+    id: string
 }
 
 export type User = {
