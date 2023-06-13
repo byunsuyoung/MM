@@ -30,11 +30,9 @@ if( isLoading ){
   return <CircularProgress color="success" />
 }
 else{
-    const DynamicContent = () => {
        return <div>
         {data}
        </div>
- }
 }
 }
 
