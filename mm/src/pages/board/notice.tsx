@@ -19,8 +19,7 @@ import { Box,
 const Bookmark: React.FC = () => {
   const noticeRead = async ()=>{
     const url = BaseUrl + "/notice/list"
-    const { data } = await axios.get(url, {
-    })
+    const { data } = await axios.get(url)
    return data
  }
 
