@@ -16,11 +16,14 @@ import { Box,
          CircularProgress,
          Typography} from '@mui/material';
 
-const Bookmark: React.FC = () => {
+const Notice_list: React.FC = () => {
+
   const noticeRead = async ()=>{
-    const url = BaseUrl + "/notice/list"
+    const url = BaseUrl + "/notice/list/?page=1&size=5"
     const { data } = await axios.get(url)
-   return data
+    
+
+   return data.results[0]['user'].email
  }
 
 const { isLoading, data } = useQuery('noticeRead', noticeRead );
@@ -36,4 +39,4 @@ else{
 }
 
 
-export default Bookmark;
+export default Notice_list;

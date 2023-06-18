@@ -5,7 +5,7 @@ type UserAction =
 
 type UserState = {
     type : String
-    id : String
+    email : String
 }
 
 export const set = (user: UserState) => ({
@@ -15,7 +15,7 @@ export const set = (user: UserState) => ({
 
 const initialState: UserState = {
     type : '',
-    id : ''
+    email : ''
 }
 
 export default function userReducer(state: UserState = initialState, action: UserAction) {

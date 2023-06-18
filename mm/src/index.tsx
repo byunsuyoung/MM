@@ -9,19 +9,34 @@ import rootReducer from './reducers';
 import { composeWithDevTools } from '@redux-devtools/extension'
 import { QueryClient, QueryClientProvider } from "react-query";
 import React from 'react';
+import Header from './pages/header';  //Component
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#000000',
+    },
+    secondary: {
+      main: '#11cb5f',
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-// const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools());
 const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+       <ThemeProvider theme={theme}>
           <BrowserRouter>
+          <Header/>
             <main>
               <div className='App-wrapper'>
                 <div className='App'>
@@ -29,7 +44,9 @@ root.render(
                 </div>
               </div>
             </main>
-          </BrowserRouter>
+           </BrowserRouter>
+          </ThemeProvider>
+        </Provider>
     </QueryClientProvider>
   </React.StrictMode>
 );
