@@ -1,0 +1,36 @@
+
+/* header start */
+.App-header {
+  background-color: rgb(240, 238, 193);
+  position:fixed;
+  height: 60px;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+  border-bottom:  rgb(186, 183, 183);
+}
+
+.App-header-logo {
+  display: flex;
+  width: 96%;
+  max-width: 1100px;
+  height: 100%;
+  margin-top: 10px;
+  margin-left: 30px;
+
+}
+.App-header-search {
+  margin-top: 10px;
+}
+.search{
+  padding:5px 10px;
+  margin-top: 10px;
+}
+.App-header-profile-icons{
+  margin-top: 10px;
+  margin-left: 50px;
+}
+
+/* header end */
+
