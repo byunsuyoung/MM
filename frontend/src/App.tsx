@@ -4,8 +4,10 @@ import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
-import Login from './pages/user/login'
-import Mypage from './pages/user/mypage'
+import Login from './pages/user/login';
+import Join from './pages/user/join';
+import Pwsearch from './pages/user/pwsearch';
+import Mypage from './pages/user/mypage';
 import Notice from './pages/board/notice_list';
 
 const App: React.FC = () => {
@@ -13,6 +15,8 @@ const App: React.FC = () => {
     <Routes> 
       <Route path='/' element={<Home/>} />
       <Route path='/login' element={<Login/>} />
+      <Route path='/join' element={<Join/>} />
+      <Route path='/pwsearch' element={<Pwsearch/>} />
       <Route path='/mypage' element={<Mypage/>} />
       <Route path='/notice' element={<Notice />} />
     </Routes>
