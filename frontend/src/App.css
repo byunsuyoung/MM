@@ -30,7 +30,8 @@
 }
 .App-header-profile-icons{
   margin-top: 10px;
-  margin-left: 50px;
+  
+  max-width: 600px;
 }
 
 /* header end */
