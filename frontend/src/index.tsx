@@ -38,10 +38,8 @@ root.render(
           <BrowserRouter>
           <Header/>
             <main>
-              <div className='App-wrapper'>
-                <div className='App'>
+              <div className='App'>
                   <App />
-                </div>
               </div>
             </main>
            </BrowserRouter>

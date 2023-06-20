@@ -8,9 +8,11 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../pages/footer';
 
+
+
 const Home: React.FC = () => {
     return (
-        <div className="main">
+        <div className="home">
             <Box sx={{ flexGrow: 1, maxWidth: 1500, margin: 'auto' , mx:15, mb:15 }}>
             <Typography sx={{fontSize:20, my:5}} textAlign='center'>지도 ..</Typography>
             </Box>
@@ -18,7 +20,7 @@ const Home: React.FC = () => {
                 <Typography sx={{fontSize:20, my:5}} textAlign='center'>주변 인기 맛집</Typography>
                     <Grid container spacing={{ xs: 3, md: 3 }} columns={{ xs: 10, md: 10 }}>
                     {Array.from(Array(5)).map((_, index) => (
-                        <Grid xs={2} sm={2} md={2} key={index}>
+                        <Grid item xs={2} sm={2} md={2} key={index}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>
@@ -55,7 +57,7 @@ const Home: React.FC = () => {
                 <Typography sx={{fontSize:20, my:5}} textAlign='center'>이벤트 중인 맛집</Typography>
                     <Grid container spacing={{ xs: 3, md: 3 }} columns={{ xs: 10, md: 10 }}>
                     {Array.from(Array(5)).map((_, index) => (
-                        <Grid xs={2} sm={2} md={2} key={index}>
+                        <Grid item xs={2} sm={2} md={2} key={index}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>

@@ -8,6 +8,7 @@ import { RootState } from '../reducers/index';
 import { set } from '../reducers/userReducer';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SearchIcon from '@mui/icons-material/Search';
+import logo from '../pages/img/logo.png';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -85,12 +86,13 @@ const Header: React.FC = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
     <header className="App-header">
-      <Stack direction="row">
+      <Stack direction={{ xs: 'column', sm: 'row' }}
+             spacing={{ xs: 2, sm: 4, md: 6 }}>
       <div className='App-header-logo'>
       <Box
         component="img"
         sx={{ height: 50, pl:5 }}
-        src={'..\pages\img\mmlogo.png'}
+        src={logo}
         onClick={() => { goHome() }}
        />
       </div>
@@ -106,7 +108,7 @@ const Header: React.FC = () => {
       </Search>
       <div className='App-header-profile-icons'>
       <Box sx={{ flexGrow: 1 }} />
-       <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+       <Box sx={{ paddingLeft: 60 }}>
         <IconButton size="large" onClick={() => { goMypage() }}>
          <PersonAddIcon fontSize="inherit"/>
         </IconButton>
