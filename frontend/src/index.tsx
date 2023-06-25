@@ -11,6 +11,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import React from 'react';
 import Header from './pages/header';  //Component
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const theme = createTheme({
   palette: {

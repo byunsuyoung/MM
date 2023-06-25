@@ -9,6 +9,9 @@ import Join from './pages/user/join';
 import Pwsearch from './pages/user/pwsearch';
 import Mypage from './pages/user/mypage';
 import Notice from './pages/board/notice_list';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const App: React.FC = () => {
   return (

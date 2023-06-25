@@ -56,23 +56,8 @@ const Login: React.FC = () => {
       navigate('/pwsearch')
     };
 
-    const goLogin = () => {
-      const url = BaseUrl + "/user/login/normal/"
-      axios.post(url, 
-        {
-          headers: { withCredentials: true },
-          body: { email: '', password: '' }
-      })
-      .then(response => {
-        const {accessToken} = response.data;
-        axios.defaults.headers.common['Authorization'] = 'Bearer ${accessToken}';
-        goHome()
-      }).catch(error => {
-        alert('로그인정보를 확인해 주세요')
-      });
-  };
-  
-    return (
+
+   return (
         <div className='login'>
           <Box sx={{marginLeft: 5}}>
           <Grid container spacing={3}>
@@ -95,12 +80,24 @@ const Login: React.FC = () => {
           email: Yup.string().matches(/^[^@\s]+@[^@\s]+\.[^@\s]+$/, '이메일 형식에 맞지 않습니다. ').max(255).required('이메일을 입력해 주세요.'),
           password: Yup.string().max(255).required('비밀번호를 입력해 주세요.')
         })}
-        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           try {
-            setStatus({ success: false });
-            setSubmitting(false);
+            setSubmitting(true);
+            axios.post(BaseUrl + "/user/login/normal/", 
+                {
+                  headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                   body: { email: values.email , password: values.password }
+                })
+                .then(response => {
+                    const {accessToken} = response.data.access_token;
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                    goHome()
+                  }).catch(error => {
+                    alert('로그인정보를 확인해 주세요')
+                  });
           } catch (err) {
-            setStatus({ success: false });
             setSubmitting(false);
           }
         }}
@@ -188,7 +185,7 @@ const Login: React.FC = () => {
                 </Grid>
               )}
               <Grid item xs={12}>
-                  <Button onClick={() => {goLogin()}} disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
+                  <Button type="submit" disabled={isSubmitting} disableElevation fullWidth size="large"  variant="contained" color="primary">
                     Login
                   </Button>
               </Grid>
