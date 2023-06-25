@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { BaseUrl } from '../../util/axiosApi';
 import axios from 'axios';
 import { set } from '../../reducers/userReducer';
+import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import {
@@ -28,6 +29,7 @@ import {
   Typography,
   Box
 } from '@mui/material';
+import { access } from 'fs';
 
 const Login: React.FC = () => {
 
@@ -53,29 +55,11 @@ const Login: React.FC = () => {
     const goPwsearch = () => {
       navigate('/pwsearch')
     };
-/*
-    const login = () => {
-      const url = BaseUrl + "/user/login"
-      axios.post(url, {
-          headers: 
-          {
-              "Content-Type": "application/json"
-          },
-          body: { email: email, pw: pw }
-      })
-      .then(function(response) {
-          dispatch(set({type: String(response.data.uno), email: email}))
-              goHome()
-      })
-      .catch(function(error) {
-          alert('로그인정보를 확인해 주세요')
-      })
-  };
-  */
 
-    return (
+
+   return (
         <div className='login'>
-          <Box sx={{marginLeft: 10}}>
+          <Box sx={{marginLeft: 5}}>
           <Grid container spacing={3}>
            <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
@@ -89,19 +73,31 @@ const Login: React.FC = () => {
             <Formik
               initialValues={{
               email: '',
-              pw: '',
+              password: '',
               submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          email: Yup.string().matches(/^[^@\s]+@[^@\s]+\.[^@\s]+$/, '이메일 형식에 맞지 않습니다. ').max(255).required('이메일을 입력해 주세요.'),
+          password: Yup.string().max(255).required('비밀번호를 입력해 주세요.')
         })}
-        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           try {
-            setStatus({ success: false });
-            setSubmitting(false);
+            setSubmitting(true);
+            axios.post(BaseUrl + "/user/login/normal/", 
+                {
+                  headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                   body: { email: values.email , password: values.password }
+                })
+                .then(response => {
+                    const {accessToken} = response.data.access_token;
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                    goHome()
+                  }).catch(error => {
+                    alert('로그인정보를 확인해 주세요')
+                  });
           } catch (err) {
-            setStatus({ success: false });
             setSubmitting(false);
           }
         }}
@@ -135,10 +131,10 @@ const Login: React.FC = () => {
                   <InputLabel htmlFor="password-login">Password</InputLabel>
                   <OutlinedInput
                     fullWidth
-                    error={Boolean(touched.pw && errors.pw)}
+                    error={Boolean(touched.password && errors.password)}
                     id="-password-login"
                     type={showPassword ? 'text' : 'password'}
-                    value={values.pw}
+                    value={values.password}
                     name="password"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -156,9 +152,9 @@ const Login: React.FC = () => {
                     }
                     placeholder="Enter password"
                   />
-                  {touched.pw && errors.pw && (
+                  {touched.password && errors.password && (
                     <FormHelperText error id="standard-weight-helper-text-password-login">
-                      {errors.pw}
+                      {errors.password}
                     </FormHelperText>
                   )}
                 </Stack>
@@ -189,7 +185,7 @@ const Login: React.FC = () => {
                 </Grid>
               )}
               <Grid item xs={12}>
-                  <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
+                  <Button type="submit" disabled={isSubmitting} disableElevation fullWidth size="large"  variant="contained" color="primary">
                     Login
                   </Button>
               </Grid>
